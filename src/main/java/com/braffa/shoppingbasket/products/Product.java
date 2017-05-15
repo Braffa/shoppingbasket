@@ -5,9 +5,17 @@ public class Product {
 
 	private double cost;
 
+	private SpecialOffer specialOffer;
+
 	public Product(String name, double cost) {
 		this.name = name;
 		this.cost = cost;
+	}
+
+	public Product(String name, double cost, int buyQty, int freeQty) {
+		this.name = name;
+		this.cost = cost;
+		this.specialOffer = new SpecialOffer(buyQty, freeQty);
 	}
 
 	public String getName() {
@@ -24,5 +32,13 @@ public class Product {
 
 	public void setCost(double cost) {
 		this.cost = cost;
+	}
+
+	public SpecialOffer getSpecialOffer() {
+		return specialOffer;
+	}
+
+	public void setSpecialOffer(SpecialOffer specialOffer) {
+		this.specialOffer = specialOffer;
 	}
 }

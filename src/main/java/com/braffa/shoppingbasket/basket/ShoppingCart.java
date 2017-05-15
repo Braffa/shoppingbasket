@@ -40,9 +40,18 @@ public class ShoppingCart {
 		double total = 0;
 		for (Map.Entry<String, Integer> item : basket.entrySet()) {
 			String key = item.getKey();
-			int value = item.getValue();
+			int purchased = item.getValue();
+			Product product = products.get(key);
 			double price = products.get(key).getCost();
-			total = total + (price * value);
+			if (product.getSpecialOffer() != null) {
+				int buyQty = product.getSpecialOffer().getBuyQty();
+				int freeQty = product.getSpecialOffer().getFreeQty();
+				double discountedNumber = (Math.floor(purchased / buyQty));
+				int remaining = purchased % buyQty;
+				total = total + ((discountedNumber * freeQty) * price) + (remaining * price);
+			} else {
+				total = total + (purchased * price);
+			}
 		}
 		return new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).doubleValue();
 	}
